@@ -1,0 +1,41 @@
+server {
+    listen 80;
+    server_name nexus.local;
+    root /var/www/nexus/backend/public;
+    index index.php;
+
+    # API routes
+    location /api/ {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP processing
+    location ~ \.php$ {
+        fastcgi_pass   unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+
+    # Upload storage
+    location /storage/ {
+        alias /var/www/nexus/backend/storage/uploads/;
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+    }
+
+    # Deny access to hidden files
+    location ~ /\. { deny all; }
+}
+
+# Frontend (serve built React app)
+server {
+    listen 80;
+    server_name app.nexus.local;
+    root /var/www/nexus/frontend/dist;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

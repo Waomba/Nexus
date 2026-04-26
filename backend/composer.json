@@ -1,0 +1,20 @@
+{
+  "name": "nexus/backend",
+  "description": "NEXUS Social Media Platform — Pure PHP REST API",
+  "type": "project",
+  "require": {
+    "php": ">=8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "start": "php -S localhost:8000 -t public",
+    "serve": "php -S 0.0.0.0:8000 -t public"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
+}

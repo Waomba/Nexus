@@ -1,0 +1,22 @@
+; NEXUS recommended PHP settings
+; Copy relevant values to your php.ini or create a .user.ini in backend/public/
+
+; File uploads (for media)
+upload_max_filesize = 50M
+post_max_size = 55M
+max_execution_time = 60
+memory_limit = 256M
+
+; Error reporting (development)
+display_errors = On
+error_reporting = E_ALL
+
+; Timezone
+date.timezone = UTC
+
+; Session
+session.cookie_httponly = 1
+session.cookie_samesite = Lax
+
+; JSON
+json.decode_max_depth = 512
